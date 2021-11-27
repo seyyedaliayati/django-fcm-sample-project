@@ -1,0 +1,4 @@
+django
+djangorestframework
+fcm-django
+firebase-admin
