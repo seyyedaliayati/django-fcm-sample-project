@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from firebase_admin import initialize_app
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'rest_framework',
+    'fcm_django',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +58,7 @@ ROOT_URLCONF = 'djangofcm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,6 +70,15 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+MESSAGE_TAGS = {
+        10: 'alert-secondary',
+        20: 'alert-info',
+        25: 'alert-success',
+        30: 'alert-warning',
+        40: 'alert-danger',
+ }
 
 WSGI_APPLICATION = 'djangofcm.wsgi.application'
 
@@ -118,8 +131,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Optional ONLY IF you have initialized a firebase app already:
+# Visit https://firebase.google.com/docs/admin/setup/#python
+# for more options for the following:
+# Store an environment variable called GOOGLE_APPLICATION_CREDENTIALS
+# which is a path that point to a json file with your credentials.
+# Additional arguments are available: credentials, options, name
+FIREBASE_APP = initialize_app()
+# To learn more, visit the docs here:
+# https://cloud.google.com/docs/authentication/getting-started>
+
+FCM_DJANGO_SETTINGS = {
+     # default: _('FCM Django')
+    # "APP_VERBOSE_NAME": "[string for AppConfig's verbose_name]",
+     # true if you want to have only one active device per registered user at a time
+     # default: False
+    "ONE_DEVICE_PER_USER": False,
+     # devices to which notifications cannot be sent,
+     # are deleted upon receiving error response from FCM
+     # default: False
+    "DELETE_INACTIVE_DEVICES": False,
+}
