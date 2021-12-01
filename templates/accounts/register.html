@@ -3,15 +3,22 @@
 
 {% block body %} 
 
-<!--Register--> 
-<div class="container py-5">
-	<h1>Register</h1>
-	<form method="POST">
-		{% csrf_token %}
-		{{ register_form | crispy }}                    
-		<button class="btn btn-primary" type="submit">Register</button>
-	</form>
-	<p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>
+
+<div class="row">
+	<div class="col-lg-3 col-md-2"></div>
+	<div class="col-lg-6 col-md-8 col-sm-12">
+		<!--Register--> 
+		<div class="py-5">
+			<h1>Register</h1>
+			<form method="POST">
+				{% csrf_token %}
+				{{ register_form | crispy }}                    
+				<button class="btn btn-primary" type="submit">Register</button>
+			</form>
+			<p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-2"></div>
 </div>
 
 {% endblock %}
