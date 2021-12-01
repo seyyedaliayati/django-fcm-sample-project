@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts.apps.AccountsConfig',
+    'notifications.apps.NotificationsConfig',
     'crispy_forms',
     'rest_framework',
     'fcm_django',
